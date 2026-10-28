@@ -1,0 +1,6 @@
+{
+  "name": "TopUpKilat",
+  "description": "Aplikasi top up game mobile, beli pulsa, paket data, dan token listrik PLN instan dan terpercaya.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

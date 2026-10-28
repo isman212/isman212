@@ -1,0 +1,32 @@
+{
+  "entities": {
+    "UserProfile": {
+      "collection": "users",
+      "fields": {
+        "displayName": { "type": "string", "required": true },
+        "email": { "type": "string", "required": false },
+        "phoneNumber": { "type": "string", "required": false },
+        "authProvider": { "type": "string", "required": true },
+        "balance": { "type": "number", "required": true },
+        "kilatCoins": { "type": "number", "required": true }
+      }
+    },
+    "Transaction": {
+      "collection": "users/{userId}/transactions",
+      "fields": {
+        "type": { "type": "string", "required": true },
+        "title": { "type": "string", "required": true },
+        "subtitle": { "type": "string", "required": true },
+        "targetNumberOrId": { "type": "string", "required": true },
+        "amountPrice": { "type": "number", "required": true },
+        "adminFee": { "type": "number", "required": true },
+        "totalPayment": { "type": "number", "required": true },
+        "paymentMethodName": { "type": "string", "required": true },
+        "status": { "type": "string", "required": true },
+        "serialNumberOrToken": { "type": "string", "required": true },
+        "timestamp": { "type": "number", "required": true },
+        "notes": { "type": "string", "required": false }
+      }
+    }
+  }
+}

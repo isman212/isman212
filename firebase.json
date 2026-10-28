@@ -1,0 +1,14 @@
+{
+  "firestore": {
+    "database": "ai-studio-android-topupkil-2ef5ca03-b798-4624-b593-a80e0a825c50",
+    "rules": "firestore.rules"
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "firestore": {
+      "port": 8085
+    }
+  }
+}

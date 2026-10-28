@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isValidUserProfile(data) {
+      return data.displayName is string && data.displayName.size() > 0 &&
+             data.authProvider is string &&
+             data.balance is number && data.balance >= 0 &&
+             data.kilatCoins is number && data.kilatCoins >= 0 &&
+             (!('email' in data) || data.email is string) &&
+             (!('phoneNumber' in data) || data.phoneNumber is string);
+    }
+
+    function isValidTransaction(data) {
+      return data.type is string &&
+             data.title is string &&
+             data.subtitle is string &&
+             data.targetNumberOrId is string &&
+             data.amountPrice is number && data.amountPrice >= 0 &&
+             data.adminFee is number && data.adminFee >= 0 &&
+             data.totalPayment is number && data.totalPayment >= 0 &&
+             data.paymentMethodName is string &&
+             data.status is string &&
+             data.serialNumberOrToken is string &&
+             data.timestamp is number &&
+             (!('notes' in data) || data.notes is string);
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidUserProfile(request.resource.data);
+      allow delete: if false;
+
+      match /transactions/{transactionId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidTransaction(request.resource.data);
+        allow update, delete: if false;
+      }
+    }
+  }
+}
